@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -16,6 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return table
     }()
     
+    private var articles = [Articles]()
     private var viewModels = [NewsTabelViewCellViewModel]()
     
     override func viewDidLoad() {
@@ -29,11 +31,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         APICaller.shared.getTopNews { [weak self]result in
             switch  result {
                 case .success(let articles):
+                    self?.articles = articles
                     self?.viewModels = articles.compactMap({
                         NewsTabelViewCellViewModel(title: $0.title,
                                                    subTitle: $0.description ?? "No Description",
-                                                   imageURL: URL(string: $0.urlToImage ?? ""),
-                                                   imageData: Data()
+                                                   imageURL: URL(string: $0.urlToImage ?? "")
                         )
                     })
                     
@@ -70,10 +72,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let article = articles[indexPath.row]
+        
+        guard let url = URL(string: article.url ?? "") else {
+            return
+        }
+        
+        let vc = SFSafariViewController(url: url)
+        present(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 220
+        return 180
     }
     
     
