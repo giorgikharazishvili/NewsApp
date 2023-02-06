@@ -11,7 +11,7 @@ class NewsTabelViewCellViewModel {
     let title: String
     let subTitle: String
     let imageURL: URL?
-    let imageData: Data?
+    var imageData: Data?
     
     init(title: String, subTitle: String, imageURL: URL?, imageData: Data?) {
         self.title = title
@@ -26,21 +26,26 @@ class NewsTabelViewCell: UITableViewCell {
     
     private let newsTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 25, weight: .medium)
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 20, weight: .medium)
         return label
     }()
     
     private let newsSubTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.italicSystemFont(ofSize: 15)
         return label
     }()
     
     private let newsImageView: UIImageView  = {
-        let newsImageView = UIImageView()
-        newsImageView.backgroundColor = .systemRed
-        newsImageView.contentMode = .scaleAspectFit
-        return newsImageView
+        let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .systemRed
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 10
+        return imageView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -56,6 +61,21 @@ class NewsTabelViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        newsTitleLabel.frame = CGRect(x: 10,
+                                      y: 0,
+                                      width: contentView.frame.size.width - 220,
+                                      height: 70)
+        
+        newsSubTitleLabel.frame = CGRect(x: 10,
+                                      y: 60,
+                                      width: contentView.frame.size.width - 220,
+                                      height: contentView.frame.size.height - 70)
+        
+        newsImageView.frame = CGRect(x: contentView.frame.size.width - 200,
+                                      y: 10,
+                                      width: 180,
+                                      height: contentView.frame.size.height - 20)
     }
     
     override func prepareForReuse() {
@@ -69,6 +89,17 @@ class NewsTabelViewCell: UITableViewCell {
         // Image
         if let data = viewModel.imageData{
             newsImageView.image = UIImage(data: data)
+        } else if let url = viewModel.imageURL {
+            // fetch
+            URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+                viewModel.imageData = data
+                DispatchQueue.main.async {
+                    self?.newsImageView.image = UIImage(data: data)
+                }
+            }.resume()
         }
     }
 }

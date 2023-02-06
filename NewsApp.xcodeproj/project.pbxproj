@@ -14,6 +14,7 @@
 		0464F2252991383D00549948 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0464F2242991383D00549948 /* Assets.xcassets */; };
 		0464F2282991383D00549948 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0464F2262991383D00549948 /* LaunchScreen.storyboard */; };
 		0464F23029913B7D00549948 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464F22F29913B7D00549948 /* APICaller.swift */; };
+		0464F232299165F100549948 /* NewsTabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464F231299165F100549948 /* NewsTabelViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0464F2272991383D00549948 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0464F2292991383D00549948 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0464F22F29913B7D00549948 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		0464F231299165F100549948 /* NewsTabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTabelViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				0464F21B2991383C00549948 /* AppDelegate.swift */,
 				0464F21D2991383C00549948 /* SceneDelegate.swift */,
 				0464F21F2991383C00549948 /* ViewController.swift */,
+				0464F231299165F100549948 /* NewsTabelViewCell.swift */,
 				0464F22F29913B7D00549948 /* APICaller.swift */,
 				0464F2212991383C00549948 /* Main.storyboard */,
 				0464F2242991383D00549948 /* Assets.xcassets */,
@@ -145,6 +148,7 @@
 				0464F21C2991383C00549948 /* AppDelegate.swift in Sources */,
 				0464F21E2991383C00549948 /* SceneDelegate.swift in Sources */,
 				0464F23029913B7D00549948 /* APICaller.swift in Sources */,
+				0464F232299165F100549948 /* NewsTabelViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
